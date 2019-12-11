@@ -1,12 +1,14 @@
 {
-  "name": "TBD",
-  "version": "0.0.0",
-  "description": "TBD",
+  "name": "SocketIO",
+  "version": "1.0.0",
+  "description": "Chat App",
+  "main": "index.js",
+  "author": "Linus Hoeren",
   "repository": "TBD",
   "license": "TBD",
   "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0",
+    "express": "*",
+    "socket.io": "*",
     "socket.io-client": "^2.3.0"
   }
 }
