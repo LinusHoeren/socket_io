@@ -1,22 +1,25 @@
-var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+users = [];
+connections = [];
+
+server.listen(process.env.PORT || 3000);
+
+console.log('Server running...');
 
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/index.html')
-});
+    res.sendFile(__dirname + '/index.html');
+})
 
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
-    });
-});
+io.sockets.on('connection', function (socket) {
+    connections.push(socket);
+    console.log('Conncected: %s sockets conncected', connections.length);
 
-io.emit('some event', {
-    someProperty: 'some value',
-    otherProperty: 'other value'
-});
+    // Disconnect
+    connections.splice(connections.indexOf(socket), 1);
+    console.log('Disconnected: %s sockets connected', connections.length);
 
-http.listen(3000, function () {
-    console.log('listening on *:3000');
 });
