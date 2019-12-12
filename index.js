@@ -21,9 +21,6 @@ io.sockets.on('connection', function (socket) {
 
     //Disconnect
     socket.on('disconnect', function (data) {
-        if(!socket.username) {
-            return;
-        }
         users.splice(users.indexOf(socket.username), 1);
         updateUsernames();
         connections.splice(connections.indexOf(socket), 1);
@@ -45,6 +42,6 @@ io.sockets.on('connection', function (socket) {
     });
 
     function updateUsernames() {
-        io.sockets.emit('get users', usernames);
+        io.sockets.emit('get users', users);
     }
 });
